@@ -44,4 +44,5 @@ $
 
 
 ## Contribute
-Feel free to contribute. Please Follow PEP8 Guidelines.
+Feel free to contribute. Please follow 80 character constraint.
+
