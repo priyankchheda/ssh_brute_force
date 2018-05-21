@@ -1,4 +1,0 @@
-
-
-[*] Username: username
-[*] Password: correctpwd
