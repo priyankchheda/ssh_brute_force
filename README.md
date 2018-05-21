@@ -7,42 +7,16 @@ Crack SSH Password using Dictionary and Brute Force Method
 Secure Shell (SSH) is a cryptographic network protocol for operating network services securely over an unsecured network. The best known example application is for remote login to computer systems by users.
 
 ## Usage
-```c
-$ gcc -o sshbrute_b sshbrute_b.c -lssh
-$
-$ ./sshbrute_b 
-Usage: ./sshbrute -t target -uf ufile [-pf pfile] [-po 22 (default)] [-b]
+**SSH Dictionary Attack**
+![SSH Dictionary Attack](https://user-images.githubusercontent.com/26242252/40314412-0e3689a0-5d36-11e8-838e-ea0aa6bad3b8.png)
 
-$
-$ ./sshbrute_b -t <ip_address> -uf username.txt -pf password.txt
+**SSH Brute Force Attack**
+![SSH Brute Force Attach](https://user-images.githubusercontent.com/26242252/40314441-1c52d836-5d36-11e8-9c39-9ad0dfb11681.png)
 
-[*] User: username
-[+] Password: toor -> Incorrect Password
-[+] Password: root -> Incorrect Password
-[+] Password: password -> Incorrect Password
-[+] Password: correctpwd -> Connected
-
-
-[*] Username: username
-[*] Password: correctpwd
-
-$
-$ ./sshbrute_b -t <ip_address> -uf username.txt -b
-
-[*] User: username
-Enter the lenght of password: 8
-[+] Password: aaaaaaaa -> Incorrect Password
-[+] Password: aaaaaaab -> Incorrect Password
-[+] Password: aaaaaaac -> Incorrect Password
-[+] Password: aaaaaaad -> Incorrect Password
-[+] Password: aaaaaaae -> Incorrect Password
-[+] Password: aaaaaaaf -> 
-Error authenticating with password: Received SSH_MSG_DISCONNECT: 33554432:Too many authentication failures
-
-$
-```
-
+## TO DO
+The program is working as a single thread application.<br />
+I wish to implement it as a multithreaded application so that it can be used in real world scenario.
 
 ## Contribute
-Feel free to contribute. Please follow 80 character constraint.
-
+Feel free to contribute.<br />
+Please follow GNU C Styling Guidelines.
