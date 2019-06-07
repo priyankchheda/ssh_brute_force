@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <string>
-using namespace std;
-vector<string> readFile(string filename);
+std::vector<std::string> readFile(std::string filename);
 
 #endif

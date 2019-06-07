@@ -3,7 +3,6 @@
 #include <vector>
 #include <string>
 #include "sshBrute.h"
-using namespace std;
 
 void SSHBrute::initSession()
 {
@@ -13,7 +12,7 @@ void SSHBrute::initSession()
 
     session = ssh_new();
     if (session == NULL) {
-        cerr << "Unable to create new session\n";
+        std::cerr << "Unable to create new session\n";
         exit(-1);
     }
     ssh_options_set(session, SSH_OPTIONS_HOST, hostname.c_str());
@@ -22,32 +21,32 @@ void SSHBrute::initSession()
 
 SSHBrute::~SSHBrute() {
     if (session != NULL)
-        cout << "deleting ssh session\n";
+        std::cout << "deleting ssh session\n";
         ssh_free(session);
 }
 
-void SSHBrute::setUser(string username) {
-    cout << "setting user to " << username << endl;
+void SSHBrute::setUser(std::string username) {
+    std::cout << "setting user to " << username << std::endl;
     initSession();
     ssh_options_set(session, SSH_OPTIONS_USER, username.c_str());
 }
 
-void SSHBrute::connect(vector<string> password) {
+void SSHBrute::connect(std::vector<std::string> password) {
     int rc = ssh_connect(session);
     if (rc != SSH_OK) {
-        cerr << "Error Connecting to localhost: "
-            << ssh_get_error(session) << endl;
+        std::cerr << "Error Connecting to localhost: "
+            << ssh_get_error(session) << std::endl;
         ssh_free(session);
         exit(-1);
     }
 
     for (int i = 0; i < password.size(); i++) {
-        cout <<  "checking for password " << password[i] << " : ";
+        std::cout <<  "checking for password " << password[i] << " : ";
         rc = ssh_userauth_password(session, NULL, password[i].c_str());
         if ( rc == SSH_AUTH_SUCCESS )
-            cout << "Connected"<< endl;
+            std::cout << "Connected"<< std::endl;
         else
-            cout << "Incorrect Password" << endl;
+            std::cout << "Incorrect Password" << std::endl;
     }
     ssh_disconnect(session);
 }
