@@ -6,7 +6,7 @@
 
 std::vector<std::string> readFile(std::string filename)
 {
-    ifstream inFile;
+    std::ifstream inFile;
     inFile.open(filename.c_str());
 
     if (!inFile) {
