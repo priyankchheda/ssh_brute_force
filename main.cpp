@@ -1,10 +1,17 @@
 #include <iostream>
 #include <vector>
+#include "spdlog/spdlog.h"
+#include "spdlog/async.h"
+#include "spdlog/sinks/basic_file_sink.h"
 #include "sshBrute.h"
 #include "utility.h"
 
 int main(int argc, char* argv[])
 {
+    auto logger = spdlog::basic_logger_mt<spdlog::async_factory>(
+            "logger", "sshbrute.log");
+    spdlog::flush_every(std::chrono::seconds(2));
+    logger->set_level(spdlog::level::debug);
     if (argc == 1) {
         std::cout << "Usage: " << argv[0] << " [options]\n"
             << "Try '" << argv[0] << " --help' for more information.\n";
@@ -58,6 +65,7 @@ int main(int argc, char* argv[])
     std::vector<std::string> username = readFile(user_filename);
     std::vector<std::string> password = readFile(password_filename);
     for (int i = 0; i < username.size(); i++) {
+        logger->info("checking for user: {}", username[i]);
         conn.setUser(username[i]);
         conn.connect(password);
     }

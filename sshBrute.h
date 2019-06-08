@@ -4,15 +4,17 @@
 #include <libssh/libssh.h>
 #include <vector>
 #include <string>
+#include "spdlog/spdlog.h"
 
 class SSHBrute
 {
     ssh_session session = NULL;
     int port;
     std::string hostname;
+    std::shared_ptr<spdlog::logger> _logger;
 
 public:
-    SSHBrute(std::string _host, int _port=22): hostname(_host), port(_port) {};
+    SSHBrute(std::string _host, int _port=22);
     ~SSHBrute();
 
     void initSession();
